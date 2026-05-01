@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can only read/write their own profile
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Study rooms: anyone logged in can read, only backend writes occupancy
+    match /rooms/{roomId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+
+    // Groups: members can read; only the creator can delete
+    match /groups/{groupId} {
+      allow read: if request.auth != null &&
+        request.auth.uid in resource.data.memberIds;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null &&
+        request.auth.uid in resource.data.memberIds;
+      allow delete: if request.auth != null &&
+        request.auth.uid == resource.data.createdBy;
+
+      // Messages subcollection: only group members
+      match /messages/{messageId} {
+        allow read, write: if request.auth != null &&
+          request.auth.uid in get(/databases/$(database)/documents/groups/$(groupId)).data.memberIds;
+      }
+    }
+
+    // Tasks: only the owning user
+    match /tasks/{taskId} {
+      allow read, write: if request.auth != null &&
+        request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null &&
+        request.auth.uid == request.resource.data.userId;
+    }
+
+    // Sessions: group members only
+    match /sessions/{sessionId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
