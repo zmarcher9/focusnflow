@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "329380333899",
+    "project_id": "focusnflow-zach-gsu",
+    "storage_bucket": "focusnflow-zach-gsu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329380333899:android:0951d627e9575c0f4b40ce",
+        "android_client_info": {
+          "package_name": "com.example.focusnflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa0cEQ31n9sx63pwusul9Uha-tnBJruO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
