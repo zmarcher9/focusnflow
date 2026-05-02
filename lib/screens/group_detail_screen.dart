@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../models/group_model.dart';
-import '../providers/auth_provider.dart';
-import '../services/chat_service.dart';
-import '../services/timer_service.dart';
 import 'chat_screen.dart';
 import 'timer_screen.dart';
 
