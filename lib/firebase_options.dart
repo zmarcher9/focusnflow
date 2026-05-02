@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'focusnflow-zach-gsu.firebasestorage.app',
     measurementId: 'G-VFLRBJ1VYZ',
   );
+
 }
