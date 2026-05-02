@@ -16,12 +16,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = const [
-    _HomeTab(),
-    RoomFinderScreen(),
-    GroupsScreen(),
-    ScheduleScreen(),
-    StudyPlanScreen(),
+  void _navigateTo(int index) {
+    setState(() => _currentIndex = index);
+  }
+
+  List<Widget> get _screens => [
+    _HomeTab(onNavigate: _navigateTo),
+    const RoomFinderScreen(),
+    const GroupsScreen(),
+    const ScheduleScreen(),
+    const StudyPlanScreen(),
   ];
 
   @override
@@ -64,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _HomeTab extends StatelessWidget {
-  const _HomeTab();
+  final void Function(int) onNavigate;
+
+  const _HomeTab({required this.onNavigate});
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +110,7 @@ class _HomeTab extends StatelessWidget {
               title: 'Find a Study Room',
               subtitle: 'See live availability',
               color: Colors.blue,
-              onTap: () {},
+              onTap: () => onNavigate(1),
             ),
             const SizedBox(height: 12),
             _QuickActionCard(
@@ -112,7 +118,7 @@ class _HomeTab extends StatelessWidget {
               title: 'My Study Groups',
               subtitle: '${user?.courses.length ?? 0} active courses',
               color: Colors.green,
-              onTap: () {},
+              onTap: () => onNavigate(2),
             ),
             const SizedBox(height: 12),
             _QuickActionCard(
@@ -120,7 +126,7 @@ class _HomeTab extends StatelessWidget {
               title: 'Weekly Study Plan',
               subtitle: 'AI-assisted scheduling',
               color: Colors.purple,
-              onTap: () {},
+              onTap: () => onNavigate(4),
             ),
           ],
         ),
